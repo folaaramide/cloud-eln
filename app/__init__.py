@@ -10,7 +10,7 @@ from app.routes.dashboard import dashboard_bp
 from app.routes.experiments import experiments_bp
 from app.routes.reports import reports_bp
 from app.routes.auth import auth_bp
-
+from app.models import User, Experiment
 
 def create_app():
 

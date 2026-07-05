@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask
 from config import Config
+from app.routes.home import home_bp
 
 
 def create_app():
@@ -7,8 +8,6 @@ def create_app():
 
     app.config.from_object(Config)
 
-    @app.route("/")
-    def home():
-        return render_template("index.html")
+    app.register_blueprint(home_bp)
 
     return app

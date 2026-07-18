@@ -8,6 +8,9 @@ class Config:
         "development-secret-key"
     )
 
-    SQLALCHEMY_DATABASE_URI = "sqlite:///eln.db"
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "DATABASE_URL",
+        "sqlite:///eln.db"
+    )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False

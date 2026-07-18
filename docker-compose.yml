@@ -1,0 +1,36 @@
+services:
+
+  web:
+    build: .
+    container_name: cloud-eln-app
+
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      - db
+
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/cloud_eln
+
+  db:
+    image: postgres:16
+
+    container_name: cloud-eln-db
+
+    restart: always
+
+    environment:
+      POSTGRES_DB: cloud_eln
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+
+  postgres_data:

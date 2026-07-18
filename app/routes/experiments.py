@@ -81,3 +81,25 @@ def edit_experiment(id):
         "edit_experiment.html",
         experiment=experiment
     )
+
+@experiments_bp.route("/experiment/<int:id>/delete", methods=["GET", "POST"])
+@login_required
+def delete_experiment(id):
+
+    experiment = Experiment.query.get_or_404(id)
+
+    if request.method == "POST":
+
+        db.session.delete(experiment)
+        db.session.commit()
+
+        flash("Experiment deleted successfully!", "success")
+
+        return redirect(
+            url_for("experiments.experiments")
+        )
+
+    return render_template(
+        "delete_experiment.html",
+        experiment=experiment
+    )

@@ -10,6 +10,7 @@ from app.extensions import (
 )
 
 from app.models.user import User
+from app.models.experiment import Experiment
 
 from app.routes.home import home_bp
 from app.routes.dashboard import dashboard_bp
@@ -39,5 +40,9 @@ def create_app():
     app.register_blueprint(experiments_bp)
     app.register_blueprint(reports_bp)
     app.register_blueprint(auth_bp)
+
+    # Create database and tables automatically if they do not exist
+    with app.app_context():
+        db.create_all()
 
     return app

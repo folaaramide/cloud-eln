@@ -1,16 +1,47 @@
-venv/
-__pycache__/
-*.pyc
-
-.git/
+# Git
+.git
 .gitignore
 
-instance/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
 
-migrations/__pycache__/
+# Virtual environments
+venv/
+.venv/
 
+# IDEs
 .vscode/
-
 .idea/
 
+# Environment files
 .env
+
+# Local databases
+*.db
+instance/
+
+# Terraform
+.terraform/
+terraform/.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Docker
+docker-compose.override.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+
+# Migrations cache
+migrations/__pycache__/
+migrations/versions/__pycache__/
+
+# Logs
+*.log

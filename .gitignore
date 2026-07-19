@@ -14,3 +14,18 @@ instance/
 
 # Environment variables
 .env
+
+# Terraform
+terraform/.terraform/
+.terraform/
+
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Do NOT commit secrets
+terraform.tfvars
+
+# Keep provider lock file
+!.terraform.lock.hcl
+!terraform/.terraform.lock.hcl

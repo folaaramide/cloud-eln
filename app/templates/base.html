@@ -24,12 +24,17 @@
 
     <div class="container">
 
-        <a class="navbar-brand" href="/">Cloud ELN</a>
+        <a class="navbar-brand" href="{{ url_for('home.home') }}">
+            Cloud ELN
+        </a>
 
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbar">
+                data-bs-target="#navbar"
+                aria-controls="navbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
 
             <span class="navbar-toggler-icon"></span>
 
@@ -41,24 +46,59 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link"
+                       href="{{ url_for('home.home') }}">
+                        Home
+                    </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">Dashboard</a>
-                </li>
+                {% if current_user.is_authenticated %}
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/experiments">Experiments</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('dashboard.dashboard') }}">
+                            Dashboard
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/reports">Reports</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('experiments.experiments') }}">
+                            Experiments
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Sign In</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('reports.reports') }}">
+                            Reports
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('auth.logout') }}">
+                            Logout
+                        </a>
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('auth.login') }}">
+                            Sign In
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('auth.register') }}">
+                            Register
+                        </a>
+                    </li>
+
+                {% endif %}
 
             </ul>
 
@@ -74,13 +114,15 @@
         {% if messages %}
             {% for category, message in messages %}
 
-                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                <div class="alert alert-{{ category }} alert-dismissible fade show"
+                     role="alert">
 
                     {{ message }}
 
                     <button type="button"
                             class="btn-close"
-                            data-bs-dismiss="alert">
+                            data-bs-dismiss="alert"
+                            aria-label="Close">
                     </button>
 
                 </div>

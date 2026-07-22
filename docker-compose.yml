@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
 
   nginx:
@@ -14,7 +16,7 @@ services:
       - web
 
   web:
-    build: .
+    image: aaramide/cloud-eln:latest
     container_name: cloud-eln-app
 
     expose:
@@ -28,7 +30,6 @@ services:
 
   db:
     image: postgres:16
-
     container_name: cloud-eln-db
 
     restart: always

@@ -35,7 +35,19 @@ pipeline {
                 }
             }
         }
-
+	stage('Debug Docker') {
+	    steps {
+        	sh '''
+        	whoami
+        	echo "HOME=$HOME"
+        	docker --version
+        	docker-compose version
+        	docker buildx version || true
+        	ls -la ~/.docker || true
+        	ls -la ~/.docker/cli-plugins || true
+        	'''
+    	   }
+    	}
         stage('Deploy') {
             steps {
                 sh '''

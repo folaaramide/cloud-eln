@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "folaaramide/cloud-eln"
+        IMAGE_NAME = "aaramide/cloud-eln"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 

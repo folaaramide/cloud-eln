@@ -39,6 +39,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
+		ls -la
 		cd /home/ec2-user/cloud-eln
                 docker-compose down || true
                 docker compose up -d --build

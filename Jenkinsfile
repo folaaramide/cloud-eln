@@ -41,9 +41,9 @@ pipeline {
                 sh '''
 		pwd
 		ls -la
-		cd /home/ec2-user/cloud-eln
+		
                 docker-compose down || true
-                docker compose up -d --build
+                docker-compose up -d --build
                 '''
             }
         }

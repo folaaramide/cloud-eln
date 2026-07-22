@@ -42,6 +42,16 @@ pipeline {
             }
         }
 
+        stage('Verify Compose File') {
+            steps {
+                sh '''
+                echo "========== docker-compose.yml =========="
+                cat docker-compose.yml
+                echo "========================================"
+                '''
+            }
+        }
+
         stage('Deploy') {
             steps {
                 withCredentials([usernamePassword(

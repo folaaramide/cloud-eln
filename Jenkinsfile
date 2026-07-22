@@ -16,7 +16,11 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+                sh '''
+                docker build \
+                    -t $IMAGE_NAME:$IMAGE_TAG \
+                    -t $IMAGE_NAME:latest .
+                '''
             }
         }
 
@@ -30,33 +34,32 @@ pipeline {
 
                     sh '''
                     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+
                     docker push $IMAGE_NAME:$IMAGE_TAG
+                    docker push $IMAGE_NAME:latest
                     '''
                 }
             }
         }
-	stage('Debug Docker') {
-	    steps {
-        	sh '''
-        	whoami
-        	echo "HOME=$HOME"
-        	docker --version
-        	docker-compose version
-        	docker buildx version || true
-        	ls -la ~/.docker || true
-        	ls -la ~/.docker/cli-plugins || true
-        	'''
-    	   }
-    	}
+
         stage('Deploy') {
             steps {
-                sh '''
-		pwd
-		ls -la
-		
-                docker-compose down || true
-                docker-compose up -d --build
-                '''
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+
+                    sh '''
+                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+
+                    docker-compose pull
+
+                    docker-compose down || true
+
+                    docker-compose up -d
+                    '''
+                }
             }
         }
     }

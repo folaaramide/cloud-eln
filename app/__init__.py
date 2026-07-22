@@ -41,8 +41,4 @@ def create_app():
     app.register_blueprint(reports_bp)
     app.register_blueprint(auth_bp)
 
-    # Create database and tables automatically if they do not exist
-    with app.app_context():
-        db.create_all()
-
     return app
